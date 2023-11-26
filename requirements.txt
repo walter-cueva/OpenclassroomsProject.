@@ -1,4 +1,3 @@
-required packages: requests
+required packages:
+requests
 beautifulsoup4
-
-Run pip install -r requirements.txt to install the dependencies listed in your requirements.txt file.
