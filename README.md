@@ -11,7 +11,7 @@ On the project's root directory, run the following command: python3 -m venv env
 Run the following command: source env/bin/activate
 
 ## Installing Dependencies
-Run the following command: pip freeze > requirements.txt or install each package (requests
+Run the following command: pip install -r requirements.txt or install each package (requests and
 beautifulsoup4) individually.
 
 ## Running the Application
