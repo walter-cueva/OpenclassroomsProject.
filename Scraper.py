@@ -50,7 +50,6 @@ def scrape_category(category_url):
             if book_data:
                 books_data.append(book_data)
 
-        # Check for next page
         next_page = soup.find('li', class_='next')
         if next_page:
             next_page_url = next_page.find('a')['href']
@@ -60,16 +59,30 @@ def scrape_category(category_url):
 
     return books_data
 
-# Define the category URL (change this URL to the category you want to scrape)
-category_url = "https://books.toscrape.com/catalogue/category/books/travel_2/index.html"
-data = scrape_category(category_url)
+def get_category_links(main_url):
+    """Get links to all book categories."""
+    response = requests.get(main_url)
+    if response.status_code != 200:
+        return []
 
-# Write data to CSV
-timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-filename = f"books_{timestamp}.csv"
-with open(filename, mode='w', newline='', encoding='utf-8') as file:
-    writer = csv.DictWriter(file, fieldnames=data[0].keys())
-    writer.writeheader()
-    writer.writerows(data)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    category_links = soup.find('div', class_='side_categories').find('ul').find('li').find('ul').find_all('a')
+    return {cat.get_text().strip(): requests.compat.urljoin(main_url, cat['href']) for cat in category_links}
 
-print(f"Data successfully saved to {filename}")
+main_url = "https://books.toscrape.com/index.html"
+categories = get_category_links(main_url)
+
+for category_name, category_url in categories.items():
+    print(f"Scraping category: {category_name}")
+    data = scrape_category(category_url)
+
+    if data:
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{category_name.replace(' ', '_')}_{timestamp}.csv"
+        with open(filename, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
+        print(f"Data for {category_name} saved to {filename}")
+    else:
+        print(f"No data found for {category_name}")
