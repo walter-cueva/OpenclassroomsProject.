@@ -2,7 +2,8 @@
 # Books Online Price Monitoring System
 
 ## Overview
-This project is a web scraping tool developed in Python, designed to monitor and extract book pricing and information from the "Books to Scrape" website. It aims to provide a comprehensive dataset of books, including details like title, price, availability, category, and more.
+This project is a web scraping tool developed in Python, designed to monitor and extract book pricing and information from the ["Books to Scrape"](https://books.toscrape.com/index.html) website. It aims to provide a comprehensive dataset of books, including details like title, price, availability, category, and more.
+
 
 ## Features
 - Extracts detailed information from individual book pages.
