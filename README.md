@@ -38,5 +38,5 @@ The script outputs CSV files with data for each category or product, depending o
 
 ### Clone the Repository
 ```bash
-git clone [https://github.com/walter-cueva/Book_Scraper.git](https://github.com/walter-cueva/OpenclassroomsProject..git)https://github.com/walter-cueva/OpenclassroomsProject..git
+git clone https://github.com/walter-cueva/OpenclassroomsProject..git
 
