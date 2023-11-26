@@ -20,11 +20,11 @@ The script outputs CSV files with data for each category or product, depending o
 
 ## Project Structure
 
-Scraper.py: The main Python script for scraping data.
-requirements.txt: Lists all the necessary Python libraries.
-README.md: This file, containing instructions and project information.
+- Scraper.py: The main Python script for scraping data.
+- requirements.txt: Lists all the necessary Python libraries.
+- README.md: This file, containing instructions and project information.
 
 ### Clone the Repository
 ```bash
 git clone https://github.com/walter-cueva/Book_Scraper.git
-cd Book_Scraper
+
