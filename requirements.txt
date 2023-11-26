@@ -1,3 +1,2 @@
-required packages:
 requests
 beautifulsoup4
