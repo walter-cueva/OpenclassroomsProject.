@@ -1,2 +1,6 @@
-requests
-beautifulsoup4
+import csv
+from urllib.parse import urljoin
+from bs4 import BeautifulSoup
+import requests
+import os
+import re
