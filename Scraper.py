@@ -9,8 +9,7 @@ import re
 def sanitize_filename(filename):
     # Remove invalid file path characters
     # The pattern [\\/*?:"<>|] matches characters that are generally not allowed in file names
-    # across various operating systems. These characters ok
-    # are replaced with an empty string.
+    # across various operating systems. These characters are replaced with an empty string.
     return re.sub(r'[\\/*?:"<>|]', '', filename)
 
 # this function is responsible for downloading an image from a given URL and saving it to a specified directory
@@ -86,7 +85,7 @@ def get_book_urls(category_url):
         soup = BeautifulSoup(response.content, 'html.parser')
         # Select all the 'h3 > a' elements linked to each book title listed under the category
         books = soup.select('h3 > a')
-        # # the urljoin used to combine src URL to book_url and form a full absolute URL of the image. Use .extend
+        # the urljoin used to combine src URL to book_url and form a full absolute URL of the image. Use .extend
         # method to add each element individually to the list
         book_urls.extend([urljoin(category_url, book['href']) for book in books])
 
