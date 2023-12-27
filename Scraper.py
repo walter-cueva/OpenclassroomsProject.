@@ -9,7 +9,8 @@ import re
 def sanitize_filename(filename):
     # Remove invalid file path characters
     # The pattern [\\/*?:"<>|] matches characters that are generally not allowed in file names
-    # across various operating systems. These characters are replaced with an empty string.
+    # across various operating systems. These characters ok
+    # are replaced with an empty string.
     return re.sub(r'[\\/*?:"<>|]', '', filename)
 
 # this function is responsible for downloading an image from a given URL and saving it to a specified directory
@@ -46,7 +47,8 @@ def scrape_book_data(book_url):
     price_including_tax = soup.find('th', string='Price (incl. tax)').find_next('td').text
     price_excluding_tax = soup.find('th', string='Price (excl. tax)').find_next('td').text
     quantity_available = soup.find('th', string='Availability').find_next('td').text
-    # find the meta tag with the attributes "name" set to "description"
+    # responsible to extract the product description
+    # find the first meta tag with the attributes "name" set to "description"
     # and use ['content'] to access the content attribute of that tag
     product_description = soup.find('meta', attrs={'name': 'description'})['content'].strip()
     # find ul elements and then find all 'a' elements and select the third "a" element (index [2]),
@@ -84,7 +86,8 @@ def get_book_urls(category_url):
         soup = BeautifulSoup(response.content, 'html.parser')
         # Select all the 'h3 > a' elements linked to each book title listed under the category
         books = soup.select('h3 > a')
-        # # the urljoin used to combine src URL to book_url and form a full absolute URL of the image
+        # # the urljoin used to combine src URL to book_url and form a full absolute URL of the image. Use .extend
+        # method to add each element individually to the list
         book_urls.extend([urljoin(category_url, book['href']) for book in books])
 
         # Look for the 'next' button on the page, and
@@ -113,6 +116,7 @@ def get_categories(main_url):
     # Create a dictionary where each category name is a key and its URL is the value
     # cat.text.strip() part of the code is used to extract and clean up the text from an HTML element
     categories = {cat.text.strip(): urljoin(main_url, cat['href']) for cat in category_list}
+    print(categories)
     return categories  # Return the dictionary of categories
 
 
@@ -141,12 +145,13 @@ if __name__ == "__main__":
         ]
         # Open the CSV file for writing
         # with is used to properly close after the code is executed
-        # "newline = "" to avoid extra lines
-        # as csvfile to assigned the file object returned by open() to a variable
+        # "newline = "" to avoid extra blank lines btw rows
+        # as csvfile to assign the file object returned by open() to a variable
         with open(csv_filename, "w", newline='') as csvfile:
             # create a writer object to write to the file object csvfile
-            # csv.writer will format the csv file.
+            # use csv.writer to write data in a CSV format and create a write object
             writer = csv.writer(csvfile)
+            # use the writerow method to write a single row to a CSV file
             writer.writerow(headers)  # Write the headers to the CSV file
             # Loop over each book URL in the category and scrape its data
             for book_url in book_urls:
