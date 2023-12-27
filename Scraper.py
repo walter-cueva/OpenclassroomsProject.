@@ -116,7 +116,7 @@ def get_categories(main_url):
     # Create a dictionary where each category name is a key and its URL is the value
     # cat.text.strip() part of the code is used to extract and clean up the text from an HTML element
     categories = {cat.text.strip(): urljoin(main_url, cat['href']) for cat in category_list}
-    print(categories)
+    # print(categories)
     return categories  # Return the dictionary of categories
 
 
