@@ -14,9 +14,9 @@ def sanitize_filename(filename):
 
 # this function is responsible for downloading an image from a given URL and saving it to a specified directory
 def download_image(image_url, folder="book_images", filename="image.jpg"):
-    # Check if the specified folder exists; if not, create it
+    # Check if the specified folder exists
     if not os.path.exists(folder):
-        os.makedirs(folder)  # Create the directory if it doesn't exist
+        os.makedirs(folder)  # Create the folder if it doesn't exist
 
     response = requests.get(image_url)
     if response.status_code == 200:
@@ -25,7 +25,7 @@ def download_image(image_url, folder="book_images", filename="image.jpg"):
         filepath = os.path.join(folder, filename)
         # Open the file in binary write mode and write the image content
         with open(filepath, 'wb') as f:
-            # the "response.content" contains the binary data of the image, which is written to a file in
+            # the "response.content" contains the binary data of the image, which is written to "f" in
             # binary mode ("wb")
             f.write(response.content)
 
